@@ -8,7 +8,7 @@ import org.gradle.api.tasks.TaskAction
 import pl.droidsonroids.gradle.jacoco.testkit.Configurations.jacocoRuntime
 import java.io.File
 
-open class GenerateJacocoTestKitProperties : DefaultTask() {
+open class GenerateJaCoCoTestKitProperties : DefaultTask() {
     @OutputFile
     val outputFile: File = File(project.testKitDirectory(), "testkit-gradle.properties")
     @Input

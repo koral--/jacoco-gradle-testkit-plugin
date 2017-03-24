@@ -8,7 +8,7 @@ import org.junit.rules.TemporaryFolder
 import pl.droidsonroids.gradle.jacoco.testkit.Tasks.generateJacocoTestKitProperties
 import java.io.File
 
-class JacocoTestKitPluginFunctionalTest {
+class JaCoCoTestKitPluginFunctionalTest {
     @get:Rule
     val temporaryFolder = TemporaryFolder()
 

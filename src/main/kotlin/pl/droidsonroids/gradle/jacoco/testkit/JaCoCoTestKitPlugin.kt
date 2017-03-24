@@ -9,23 +9,37 @@ import pl.droidsonroids.gradle.jacoco.testkit.Configurations.testRuntime
 import pl.droidsonroids.gradle.jacoco.testkit.Tasks.generateJacocoTestKitProperties
 import pl.droidsonroids.gradle.jacoco.testkit.Tasks.test
 
-class JacocoTestKitPlugin : Plugin<Project> {
+class JaCoCoTestKitPlugin : Plugin<Project> {
 
     override fun apply(project: Project) = with(project) {
         val jacocoVersion = extensions.findByType(JacocoPluginExtension::class.java)?.toolVersion ?: DEFAULT_JACOCO_VERSION
+        val jacocoTestKitPropertiesTask = tasks.create(generateJacocoTestKitProperties, GenerateJaCoCoTestKitProperties::class.java)
+
         configurations.maybeCreate(jacocoRuntime).isVisible = false
 
         dependencies.add(jacocoRuntime, "org.jacoco:org.jacoco.agent:$jacocoVersion:runtime")
 
-        configurations.whenObjectAdded {
-            if (it.name == testRuntime) {
-                dependencies.add(testRuntime, files(testKitDirectory()))
+        if (configurations.findByName(testRuntime) != null) {
+            createTestKitRuntimeDependency()
+        } else {
+            configurations.whenObjectAdded {
+                if (it.name == testRuntime) {
+                    createTestKitRuntimeDependency()
+                }
             }
         }
-        val jacocoTestKitPropertiesTask = tasks.create(generateJacocoTestKitProperties, GenerateJacocoTestKitProperties::class.java)
-        tasks.whenObjectAdded {
-            if (it.name == test) {
-                tasks.getByName(test).dependsOn(jacocoTestKitPropertiesTask)
+
+        fun Project.addJaCoCoPropertiesTaskAsDependency() {
+            tasks.getByName(test).dependsOn(jacocoTestKitPropertiesTask)
+        }
+
+        if (tasks.findByName(test) != null) {
+            addJaCoCoPropertiesTaskAsDependency()
+        } else {
+            tasks.whenObjectAdded {
+                if (it.name == test) {
+                    addJaCoCoPropertiesTaskAsDependency()
+                }
             }
         }
         Unit

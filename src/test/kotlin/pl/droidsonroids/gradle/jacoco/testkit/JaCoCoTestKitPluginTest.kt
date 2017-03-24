@@ -10,14 +10,14 @@ import pl.droidsonroids.gradle.jacoco.testkit.Configurations.jacocoRuntime
 import pl.droidsonroids.gradle.jacoco.testkit.Configurations.testRuntime
 import pl.droidsonroids.gradle.jacoco.testkit.Tasks.test
 
-class JacocoTestKitPluginTest {
+class JaCoCoTestKitPluginTest {
 
     lateinit var project: Project
 
     @Before
     fun setUp() {
         project = ProjectBuilder.builder().build()
-        project.pluginManager.apply(JacocoTestKitPlugin::class.java)
+        project.pluginManager.apply(JaCoCoTestKitPlugin::class.java)
     }
 
     @Test
