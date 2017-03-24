@@ -13,11 +13,10 @@ class JaCoCoTestKitPlugin : Plugin<Project> {
 
     override fun apply(project: Project) = with(project) {
         val jacocoVersion = extensions.findByType(JacocoPluginExtension::class.java)?.toolVersion ?: DEFAULT_JACOCO_VERSION
-        val jacocoTestKitPropertiesTask = tasks.create(generateJacocoTestKitProperties, GenerateJaCoCoTestKitProperties::class.java)
 
         configurations.maybeCreate(jacocoRuntime).isVisible = false
-
         dependencies.add(jacocoRuntime, "org.jacoco:org.jacoco.agent:$jacocoVersion:runtime")
+        val jacocoTestKitPropertiesTask = tasks.create(generateJacocoTestKitProperties, GenerateJaCoCoTestKitProperties::class.java)
 
         if (configurations.findByName(testRuntime) != null) {
             createTestKitRuntimeDependency()
