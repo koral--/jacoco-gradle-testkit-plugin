@@ -2,12 +2,15 @@ package pl.droidsonroids.gradle.jacoco.testkit
 
 import org.gradle.api.GradleException
 import org.gradle.api.Project
-import pl.droidsonroids.gradle.jacoco.testkit.Configurations.testRuntime
+import org.gradle.util.GradleVersion
 import java.io.File
 
 internal object Configurations {
     val jacocoRuntime = "jacocoRuntime"
-    val testRuntime = "testRuntime"
+    val currentTestRuntime = when {
+        GradleVersion.current() >= GradleVersion.version("3.4") -> "testRuntimeOnly"
+        else -> "testRuntime"
+    }
 }
 
 internal object Tasks {
@@ -15,11 +18,8 @@ internal object Tasks {
     val generateJacocoTestKitProperties = "generateJacocoTestKitProperties"
 }
 
-internal fun Project.testKitDirectory() = File(buildDir, "testkit")
+internal fun Project.testKitDir() = File(buildDir, "testkit")
 
-internal fun Project.createTestKitRuntimeDependency() =
-        dependencies.add(testRuntime, files(testKitDirectory()))
-
-internal fun File.ensureParentDirectoryExists() = with(parentFile) {
+internal fun File.ensureParentExists() = with(parentFile) {
     isDirectory || mkdirs() || throw GradleException("Could not create $path")
 }

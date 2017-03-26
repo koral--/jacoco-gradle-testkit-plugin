@@ -13,32 +13,32 @@ class CommonsTest {
     val temporaryFolder = TemporaryFolder()
 
     @Test
-    fun existingDirectoryExistenceEnsured() {
+    fun `existing parent existence ensured`() {
         val file = temporaryFolder.newFile()
         assertThat(file.parentFile).isDirectory()
-        assertThat(file.ensureParentDirectoryExists()).isTrue()
+        assertThat(file.ensureParentExists()).isTrue()
     }
 
     @Test
-    fun nonExistentDirectoryCreated() {
+    fun `non existent parent created`() {
         val parent = temporaryFolder.newFolder()
         assertThat(parent.delete()).isTrue()
         val file = File(parent, "test")
         assertThat(file.parentFile).doesNotExist()
-        assertThat(file.ensureParentDirectoryExists()).isTrue()
+        assertThat(file.ensureParentExists()).isTrue()
         assertThat(file.parentFile).isDirectory()
     }
 
     @Test(expected = GradleException::class)
-    fun exceptionThrownIfParentDirectoryCouldNotBeCreated() {
+    fun `exception thrown if parent could not be created`() {
         val file = temporaryFolder.newFile()
         assertThat(file).isFile()
-        File(file, "test").ensureParentDirectoryExists()
+        File(file, "test").ensureParentExists()
     }
 
     @Test
-    fun testKitDirectoryIsLocatedInBuildDirectory() {
+    fun `test kit directory is located in build directory`() {
         val project = ProjectBuilder.builder().build()
-        assertThat(project.testKitDirectory()).hasParent(project.buildDir)
+        assertThat(project.testKitDir()).hasParent(project.buildDir)
     }
 }

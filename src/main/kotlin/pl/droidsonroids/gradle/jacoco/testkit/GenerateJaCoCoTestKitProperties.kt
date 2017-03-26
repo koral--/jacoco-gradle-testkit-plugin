@@ -10,13 +10,13 @@ import java.io.File
 
 open class GenerateJaCoCoTestKitProperties : DefaultTask() {
     @OutputFile
-    val outputFile: File = File(project.testKitDirectory(), "testkit-gradle.properties")
+    val outputFile: File = File(project.testKitDir(), "testkit-gradle.properties")
     @Input
     val jacocoRuntimeConfiguration: Configuration = project.configurations.getByName(jacocoRuntime)
 
     @TaskAction
     fun createJacocoProperties() {
-        outputFile.ensureParentDirectoryExists()
+        outputFile.ensureParentExists()
         val jacocoRuntimePath = jacocoRuntimeConfiguration.asPath
         val jacocoDestFile = "${project.buildDir}/jacoco/test.exec"
         outputFile.writeText("org.gradle.jvmargs:-javaagent:$jacocoRuntimePath=destfile=$jacocoDestFile")

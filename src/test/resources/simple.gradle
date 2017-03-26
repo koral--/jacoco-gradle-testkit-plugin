@@ -1,0 +1,7 @@
+plugins {
+    id 'pl.droidsonroids.jacoco.testkit'
+}
+
+repositories {
+    mavenCentral()
+}

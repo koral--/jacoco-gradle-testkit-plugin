@@ -1,0 +1,12 @@
+plugins {
+    id 'pl.droidsonroids.jacoco.testkit'
+    id 'jacoco'
+}
+
+repositories {
+    mavenCentral()
+}
+
+jacoco {
+    toolVersion = '0.7.7.201606060606'
+}

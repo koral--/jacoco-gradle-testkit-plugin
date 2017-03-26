@@ -1,3 +1,6 @@
+### 0.0.4
+- Fixed `jacoco` extension parsing
+
 ### 0.0.3
 - Fixed plugin application
 
