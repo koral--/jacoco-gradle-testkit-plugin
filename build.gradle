@@ -3,7 +3,7 @@ plugins {
     id 'com.gradle.plugin-publish' version '0.9.7'
     id 'jacoco'
     id 'java-gradle-plugin'
-    id 'pl.droidsonroids.jacoco.testkit' version '0.0.4'
+    id 'pl.droidsonroids.jacoco.testkit' version '1.0.0'
 }
 
 dependencies {
