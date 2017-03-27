@@ -7,9 +7,9 @@ plugins {
 }
 
 dependencies {
-    compile gradleApi()
+    compileOnly gradleApi()
     compile 'org.jetbrains.kotlin:kotlin-stdlib:1.1.1'
-    testCompile gradleTestKit()
+    testCompileOnly gradleTestKit()
     testCompile 'junit:junit:4.12'
     testCompile 'org.assertj:assertj-core:3.6.2'
 }
