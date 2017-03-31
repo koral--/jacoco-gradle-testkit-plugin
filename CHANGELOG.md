@@ -1,3 +1,6 @@
+### 1.0.1
+- Agent path fixed on Windows - [#1](#1)
+
 ### 1.0.0
 - Readme added
 - First release
