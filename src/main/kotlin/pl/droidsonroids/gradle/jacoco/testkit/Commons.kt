@@ -4,6 +4,7 @@ import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.util.GradleVersion
 import java.io.File
+import java.util.*
 
 internal object Configurations {
     val jacocoRuntime = "jacocoRuntime"
@@ -23,3 +24,6 @@ internal fun Project.testKitDir() = File(buildDir, "testkit")
 internal fun File.ensureParentExists() = with(parentFile) {
     isDirectory || mkdirs() || throw GradleException("Could not create $path")
 }
+
+internal fun isCurrenOsWindows() =
+        System.getProperty("os.name").toLowerCase(Locale.ROOT).contains("windows")

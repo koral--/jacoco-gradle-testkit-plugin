@@ -17,7 +17,12 @@ open class GenerateJaCoCoTestKitProperties : DefaultTask() {
     @TaskAction
     fun createJacocoProperties() {
         outputFile.ensureParentExists()
-        val jacocoRuntimePath = jacocoRuntimeConfiguration.asPath
+        val jacocoRuntimePath = jacocoRuntimeConfiguration.asPath.let {
+            when {
+                isCurrenOsWindows() -> it.replace('\\', '/')
+                else -> it
+            }
+        }
         val jacocoDestFile = "${project.buildDir}/jacoco/test.exec"
         outputFile.writeText("org.gradle.jvmargs:-javaagent:$jacocoRuntimePath=destfile=$jacocoDestFile")
     }
