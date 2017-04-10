@@ -14,6 +14,11 @@ open class GenerateJaCoCoTestKitProperties : DefaultTask() {
     @Input
     val jacocoRuntimeConfiguration: Configuration = project.configurations.getByName(jacocoRuntime)
 
+    init {
+        group = "verification"
+        description = "Generates gradle.properties with JaCoCo java agent for TestKit"
+    }
+
     @TaskAction
     fun createJacocoProperties() {
         outputFile.ensureParentExists()

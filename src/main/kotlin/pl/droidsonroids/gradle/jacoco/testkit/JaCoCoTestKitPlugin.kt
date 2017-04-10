@@ -13,19 +13,22 @@ class JaCoCoTestKitPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
         with(project) {
-            configurations.maybeCreate(jacocoRuntime).isVisible = false
+            configurations.create(jacocoRuntime)
+                    .setVisible(false)
+                    .description = "JaCoCo agent for TestKit"
+
             afterEvaluate {
                 val jacocoVersion = extensions.findByType(JacocoPluginExtension::class.java)?.toolVersion ?: DEFAULT_JACOCO_VERSION
                 dependencies.add(jacocoRuntime, "org.jacoco:org.jacoco.agent:$jacocoVersion:runtime")
             }
-
-            val jacocoTestKitPropertiesTask = tasks.create(generateJacocoTestKitProperties, GenerateJaCoCoTestKitProperties::class.java)
 
             configurations.all {
                 if (it.name == currentTestRuntime) {
                     dependencies.add(currentTestRuntime, files(testKitDir()))
                 }
             }
+
+            val jacocoTestKitPropertiesTask = tasks.create(generateJacocoTestKitProperties, GenerateJaCoCoTestKitProperties::class.java)
             tasks.all {
                 if (it.name == test) {
                     it.dependsOn(jacocoTestKitPropertiesTask)
