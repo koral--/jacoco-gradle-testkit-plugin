@@ -13,7 +13,7 @@ class JaCoCoTestKitPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
         with(project) {
-            configurations.create(jacocoRuntime)
+            configurations.maybeCreate(jacocoRuntime)
                     .setVisible(false)
                     .description = "JaCoCo agent for TestKit"
 
