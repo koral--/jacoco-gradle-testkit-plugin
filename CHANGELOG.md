@@ -1,3 +1,7 @@
+### 1.0.2
+- Code cleanup
+- Gradle version bumped to 3.5
+
 ### 1.0.1
 - Agent path fixed on Windows - [#1](#1)
 
