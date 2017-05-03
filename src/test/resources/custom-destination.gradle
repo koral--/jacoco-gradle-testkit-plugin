@@ -1,0 +1,11 @@
+plugins {
+    id 'pl.droidsonroids.jacoco.testkit'
+}
+
+repositories {
+    mavenCentral()
+}
+
+tasks.withType(pl.droidsonroids.gradle.jacoco.testkit.GenerateJaCoCoTestKitProperties) {
+    it.destinationFile = file('custom.exec')
+}

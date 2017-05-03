@@ -13,6 +13,8 @@ open class GenerateJaCoCoTestKitProperties : DefaultTask() {
     val outputFile: File = File(project.testKitDir(), "testkit-gradle.properties")
     @Input
     val jacocoRuntimeConfiguration: Configuration = project.configurations.getByName(jacocoRuntime)
+    @Input
+    var destinationFile = "${project.buildDir}/jacoco/test.exec"
 
     init {
         group = "verification"
@@ -28,7 +30,6 @@ open class GenerateJaCoCoTestKitProperties : DefaultTask() {
                 else -> it
             }
         }
-        val jacocoDestFile = "${project.buildDir}/jacoco/test.exec"
-        outputFile.writeText("org.gradle.jvmargs:-javaagent:$jacocoRuntimePath=destfile=$jacocoDestFile")
+        outputFile.writeText("org.gradle.jvmargs:-javaagent:$jacocoRuntimePath=destfile=$destinationFile")
     }
 }
