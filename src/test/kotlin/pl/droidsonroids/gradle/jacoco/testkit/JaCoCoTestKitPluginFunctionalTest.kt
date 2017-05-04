@@ -33,7 +33,7 @@ class JaCoCoTestKitPluginFunctionalTest {
         assertThat(propertiesFile.readText()).startsWith("org.gradle.jvmargs:-javaagent:")
                 .contains("=destfile=")
                 .contains(JacocoPlugin.DEFAULT_JACOCO_VERSION)
-                .endsWith(".exec")
+                .endsWith("test.exec")
     }
 
     @Test
@@ -62,5 +62,20 @@ class JaCoCoTestKitPluginFunctionalTest {
                 .withTestKitDir(temporaryFolder.newFolder())
                 .withPluginClasspath()
                 .build()
+    }
+
+    @Test
+    fun `gradle properties file generated with custom destination file`() {
+        temporaryFolder.newFile("build.gradle").fillFromResource("custom-destination.gradle")
+        GradleRunner.create()
+                .withProjectDir(temporaryFolder.root)
+                .withTestKitDir(temporaryFolder.newFolder())
+                .withArguments("generateJacocoIntegrationTestKitProperties")
+                .withPluginClasspath()
+                .build()
+
+        val propertiesFile = File(temporaryFolder.root, "build/testkit/testkit-gradle.properties")
+        assertThat(propertiesFile.readText())
+                .endsWith("integration.exec")
     }
 }
