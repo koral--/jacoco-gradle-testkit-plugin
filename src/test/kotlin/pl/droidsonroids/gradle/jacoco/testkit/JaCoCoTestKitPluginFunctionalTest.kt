@@ -70,12 +70,12 @@ class JaCoCoTestKitPluginFunctionalTest {
         GradleRunner.create()
                 .withProjectDir(temporaryFolder.root)
                 .withTestKitDir(temporaryFolder.newFolder())
-                .withArguments(generateJacocoTestKitProperties)
+                .withArguments("generateJacocoIntegrationTestKitProperties")
                 .withPluginClasspath()
                 .build()
 
         val propertiesFile = File(temporaryFolder.root, "build/testkit/testkit-gradle.properties")
         assertThat(propertiesFile.readText())
-                .endsWith("custom.exec")
+                .endsWith("integration.exec")
     }
 }

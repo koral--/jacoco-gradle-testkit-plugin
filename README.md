@@ -17,7 +17,7 @@ for more details.
 - Apply plugin in `build.gradle`:
 ```groovy
 plugins {
-  id "pl.droidsonroids.jacoco.testkit" version "1.0.1"
+  id "pl.droidsonroids.jacoco.testkit" version "1.0.3"
 }
 ```
 This will add `testkit-gradle.properties` system resource.
@@ -51,5 +51,14 @@ class AwesomeTest {
                 .withJaCoCo()
                 .build()
     }
+}
+```
+
+### Custom JaCoCo destination file
+JaCoCo destination file path defaults to `${project.buildDir}/jacoco/test.exec` but may be changed
+using `destinationFile` task property e.g.:
+```groovy
+task generateJacocoIntegrationTestKitProperties(type: GenerateJaCoCoTestKitProperties) {
+  destinationFile = file('integration.exec')
 }
 ```

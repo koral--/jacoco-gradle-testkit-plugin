@@ -1,3 +1,7 @@
+### 1.0.3
+- Gradle wrapper regenerated with 3.5
+- JaCoCo destination file made configurable - [#4](#4)
+
 ### 1.0.2
 - Code cleanup
 - Gradle version bumped to 3.5

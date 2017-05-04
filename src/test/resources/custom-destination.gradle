@@ -6,6 +6,6 @@ repositories {
     mavenCentral()
 }
 
-tasks.withType(pl.droidsonroids.gradle.jacoco.testkit.GenerateJaCoCoTestKitProperties) {
-    it.destinationFile = file('custom.exec')
+task generateJacocoIntegrationTestKitProperties(type: pl.droidsonroids.gradle.jacoco.testkit.GenerateJaCoCoTestKitProperties) {
+    destinationFile = file('integration.exec')
 }
