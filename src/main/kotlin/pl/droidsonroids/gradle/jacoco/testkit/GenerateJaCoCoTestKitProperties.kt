@@ -19,7 +19,7 @@ open class GenerateJaCoCoTestKitProperties : DefaultTask() {
         outputFile.ensureParentExists()
         val jacocoRuntimePath = jacocoRuntimeConfiguration.asPath.let {
             when {
-                isCurrenOsWindows() -> it.replace('\\', '/')
+                isCurrentOsWindows() -> it.replace('\\', '/')
                 else -> it
             }
         }

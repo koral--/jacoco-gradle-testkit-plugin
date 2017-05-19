@@ -1,5 +1,5 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.1.1'
+    id 'org.jetbrains.kotlin.jvm' version '1.1.2-2'
     id 'com.gradle.plugin-publish' version '0.9.7'
     id 'jacoco'
     id 'java-gradle-plugin'
@@ -8,10 +8,10 @@ plugins {
 
 dependencies {
     compileOnly gradleApi()
-    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.1.1'
+    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.1.2-3'
     testCompileOnly gradleTestKit()
     testCompile 'junit:junit:4.12'
-    testCompile 'org.assertj:assertj-core:3.6.2'
+    testCompile 'org.assertj:assertj-core:3.7.0'
 }
 
 repositories {
