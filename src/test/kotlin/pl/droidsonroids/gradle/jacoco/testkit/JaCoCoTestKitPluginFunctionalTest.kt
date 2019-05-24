@@ -9,6 +9,7 @@ import org.junit.Test
 import org.junit.rules.TemporaryFolder
 import pl.droidsonroids.gradle.jacoco.testkit.Tasks.generateJacocoTestKitProperties
 import java.io.File
+import java.util.Properties
 
 class JaCoCoTestKitPluginFunctionalTest {
     @get:Rule
@@ -29,11 +30,12 @@ class JaCoCoTestKitPluginFunctionalTest {
                 .withPluginClasspath()
                 .build()
 
-        val propertiesFile = File(temporaryFolder.root, "build/testkit/testkit-gradle.properties")
-        assertThat(propertiesFile.readText()).startsWith("org.gradle.jvmargs:-javaagent:")
+        val args = readArgsFromProperties()
+        assertThat(args)
+                .startsWith("\"-javaagent:")
                 .contains("=destfile=")
                 .contains(JacocoPlugin.DEFAULT_JACOCO_VERSION)
-                .endsWith("test.exec")
+                .endsWith("test.exec\"")
     }
 
     @Test
@@ -46,11 +48,12 @@ class JaCoCoTestKitPluginFunctionalTest {
                 .withPluginClasspath()
                 .build()
 
-        val propertiesFile = File(temporaryFolder.root, "build/testkit/testkit-gradle.properties")
-        assertThat(propertiesFile.readText()).startsWith("org.gradle.jvmargs:-javaagent:")
+        val args = readArgsFromProperties()
+        assertThat(args)
+                .startsWith("\"-javaagent:")
                 .contains("=destfile=")
                 .contains("0.7.7.201606060606")
-                .endsWith(".exec")
+                .endsWith(".exec\"")
     }
 
     @Test
@@ -74,8 +77,17 @@ class JaCoCoTestKitPluginFunctionalTest {
                 .withPluginClasspath()
                 .build()
 
+        val args = readArgsFromProperties()
+        assertThat(args)
+                .endsWith("integration.exec\"")
+    }
+
+    private fun readArgsFromProperties(): String {
         val propertiesFile = File(temporaryFolder.root, "build/testkit/testkit-gradle.properties")
-        assertThat(propertiesFile.readText())
-                .endsWith("integration.exec")
+        val properties = Properties()
+        propertiesFile.inputStream().use { inputStream ->
+            properties.load(inputStream)
+        }
+        return properties.getProperty("org.gradle.jvmargs")
     }
 }
