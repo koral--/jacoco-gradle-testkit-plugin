@@ -7,7 +7,7 @@ import java.io.File
 import java.util.*
 
 internal object Configurations {
-    val jacocoRuntime = "jacocoRuntime"
+    const val jacocoRuntime = "jacocoRuntime"
     val currentTestRuntime = when {
         GradleVersion.current() >= GradleVersion.version("3.4") -> "testRuntimeOnly"
         else -> "testRuntime"
@@ -15,8 +15,8 @@ internal object Configurations {
 }
 
 internal object Tasks {
-    val test = "test"
-    val generateJacocoTestKitProperties = "generateJacocoTestKitProperties"
+    const val test = "test"
+    const val generateJacocoTestKitProperties = "generateJacocoTestKitProperties"
 }
 
 internal fun Project.testKitDir() = File(buildDir, "testkit")
@@ -24,6 +24,3 @@ internal fun Project.testKitDir() = File(buildDir, "testkit")
 internal fun File.ensureParentExists() = with(parentFile) {
     isDirectory || mkdirs() || throw GradleException("Could not create $path")
 }
-
-internal fun isCurrenOsWindows() =
-        System.getProperty("os.name").toLowerCase(Locale.ROOT).contains("windows")

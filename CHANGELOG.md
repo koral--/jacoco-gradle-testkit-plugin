@@ -1,3 +1,7 @@
+### 1.0.4
+- Gradle wrapper regenerated with 5.4.1
+- Agent path fixed on Windows (again) - [#1](#1)
+
 ### 1.0.3
 - Gradle wrapper regenerated with 3.5
 - JaCoCo destination file made configurable - [#4](#4)
