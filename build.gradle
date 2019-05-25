@@ -3,13 +3,12 @@ plugins {
     id 'com.gradle.plugin-publish' version '0.10.1'
     id 'jacoco'
     id 'java-gradle-plugin'
-    id 'pl.droidsonroids.jacoco.testkit' version '1.0.3'
+    id 'pl.droidsonroids.jacoco.testkit' version '1.0.4'
 }
 
 dependencies {
     compileOnly gradleApi()
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.3.31'
-    testCompileOnly gradleTestKit()
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.assertj:assertj-core:3.12.2'
 }
@@ -36,8 +35,17 @@ pluginBundle {
     }
 }
 
+gradlePlugin {
+    plugins {
+        jacocoTestKitPlugin {
+            id = 'pl.droidsonroids.jacoco.testkit'
+            implementationClass = 'pl.droidsonroids.gradle.jacoco.testkit.JaCoCoTestKitPlugin'
+        }
+    }
+}
+
 jacoco {
-    toolVersion '0.7.9'
+    toolVersion '0.8.4'
 }
 
 jacocoTestReport {
