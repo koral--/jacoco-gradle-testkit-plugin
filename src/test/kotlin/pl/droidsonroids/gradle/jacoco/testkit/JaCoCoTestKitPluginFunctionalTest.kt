@@ -57,10 +57,35 @@ class JaCoCoTestKitPluginFunctionalTest {
     }
 
     @Test
-    fun `plugin compatible with Gradle older than 3_4`() {
+    fun `gradle properties file generated doesn't change between builds`() {
+        temporaryFolder.newFile("build.gradle").fillFromResource("extension.gradle")
+        val testKitDir: File = temporaryFolder.newFolder()
+        val gradleBuilder = GradleRunner.create()
+            .withProjectDir(temporaryFolder.root)
+            .withTestKitDir(testKitDir)
+            .withArguments(generateJacocoTestKitProperties, "--rerun-tasks")
+            .withPluginClasspath()
+
+        gradleBuilder.build()
+        val firstBuildProperties = readLinesFromProperties()
+
+        Thread.sleep(1000) // we need to wait for a second to be sure a timestamp would have changed
+        testKitDir.listFiles()?.forEach { it.delete() }
+
+        gradleBuilder.build()
+        val secondBuildProperties = readLinesFromProperties()
+
+
+        assertThat(secondBuildProperties)
+            .isEqualTo(firstBuildProperties)
+    }
+
+
+    @Test
+    fun `plugin compatible with Gradle 4_0`() {
         temporaryFolder.newFile("build.gradle").fillFromResource("simple.gradle")
         GradleRunner.create()
-                .withGradleVersion("3.3")
+                .withGradleVersion("4.0")
                 .withProjectDir(temporaryFolder.root)
                 .withTestKitDir(temporaryFolder.newFolder())
                 .withPluginClasspath()
@@ -89,5 +114,12 @@ class JaCoCoTestKitPluginFunctionalTest {
             properties.load(inputStream)
         }
         return properties.getProperty("org.gradle.jvmargs")
+    }
+
+    private fun readLinesFromProperties(): List<String> {
+        val propertiesFile = File(temporaryFolder.root, "build/testkit/testkit-gradle.properties")
+        return propertiesFile.inputStream().use { inputStream ->
+            inputStream.reader().readLines()
+        }
     }
 }

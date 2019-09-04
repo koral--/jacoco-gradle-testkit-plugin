@@ -2,16 +2,11 @@ package pl.droidsonroids.gradle.jacoco.testkit
 
 import org.gradle.api.GradleException
 import org.gradle.api.Project
-import org.gradle.util.GradleVersion
 import java.io.File
-import java.util.*
 
 internal object Configurations {
     const val jacocoRuntime = "jacocoRuntime"
-    val currentTestRuntime = when {
-        GradleVersion.current() >= GradleVersion.version("3.4") -> "testRuntimeOnly"
-        else -> "testRuntime"
-    }
+    const val currentTestRuntime = "testRuntimeOnly"
 }
 
 internal object Tasks {
