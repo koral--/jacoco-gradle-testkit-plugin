@@ -1,3 +1,8 @@
+### 1.0.5
+- Gradle wrapper regenerated with 5.6.1
+- Kotlin updated to 1.3.50
+- Add compatibility with Gradle cache - [#10](#10)
+
 ### 1.0.4
 - Gradle wrapper regenerated with 5.4.1
 - Agent path fixed on Windows (again) - [#1](#1)
