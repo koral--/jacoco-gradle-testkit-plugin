@@ -16,9 +16,9 @@ class JaCoCoTestKitPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
         with(project) {
-            val jacocoRuntimeConfiguration = configurations.maybeCreate(jacocoRuntime)
-                .setVisible(false)
-                .setDescription("JaCoCo agent for TestKit")
+            configurations.maybeCreate(jacocoRuntime)
+                    .setVisible(false)
+                    .description = "JaCoCo agent for TestKit"
 
             afterEvaluate {
                 val jacocoVersion = extensions.findByType(JacocoPluginExtension::class.java)?.toolVersion ?: DEFAULT_JACOCO_VERSION
