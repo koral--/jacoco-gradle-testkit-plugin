@@ -1,3 +1,8 @@
+### 1.0.6
+- Gradle wrapper regenerated with 6.3
+- Kotlin updated to 1.3.72
+- Use configuration avoidance API - [#13](#13)
+
 ### 1.0.5
 - Gradle wrapper regenerated with 5.6.1
 - Kotlin updated to 1.3.50

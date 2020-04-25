@@ -17,7 +17,7 @@ for more details.
 - Apply plugin in `build.gradle`:
 ```groovy
 plugins {
-  id "pl.droidsonroids.jacoco.testkit" version "1.0.4"
+  id "pl.droidsonroids.jacoco.testkit" version "1.0.6"
 }
 ```
 This will add `testkit-gradle.properties` system resource.
@@ -62,3 +62,6 @@ task generateJacocoIntegrationTestKitProperties(type: GenerateJaCoCoTestKitPrope
   destinationFile = file('integration.exec')
 }
 ```
+
+### Update from 1.0.5 or older
+Starting from plugin version 1.0.6 the minimum supported Gradle version is 4.9
