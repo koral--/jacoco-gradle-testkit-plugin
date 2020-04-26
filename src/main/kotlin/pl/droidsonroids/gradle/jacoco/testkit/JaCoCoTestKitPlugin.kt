@@ -2,15 +2,12 @@ package pl.droidsonroids.gradle.jacoco.testkit
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.artifacts.Configuration
-import org.gradle.api.tasks.WriteProperties
 import org.gradle.testing.jacoco.plugins.JacocoPlugin.DEFAULT_JACOCO_VERSION
 import org.gradle.testing.jacoco.plugins.JacocoPluginExtension
 import pl.droidsonroids.gradle.jacoco.testkit.Configurations.currentTestRuntime
 import pl.droidsonroids.gradle.jacoco.testkit.Configurations.jacocoRuntime
 import pl.droidsonroids.gradle.jacoco.testkit.Tasks.generateJacocoTestKitProperties
 import pl.droidsonroids.gradle.jacoco.testkit.Tasks.test
-import java.io.File
 
 class JaCoCoTestKitPlugin : Plugin<Project> {
 
@@ -25,20 +22,19 @@ class JaCoCoTestKitPlugin : Plugin<Project> {
                 dependencies.add(jacocoRuntime, "org.jacoco:org.jacoco.agent:$jacocoVersion:runtime")
             }
 
-            configurations.all {
+            configurations.configureEach {
                 if (it.name == currentTestRuntime) {
                     dependencies.add(currentTestRuntime, files(testKitDir()))
                 }
             }
 
-            val jacocoTestKitPropertiesTask = tasks.create(generateJacocoTestKitProperties, GenerateJaCoCoTestKitProperties::class.java)
+            val jacocoTestKitPropertiesTask = tasks.register(generateJacocoTestKitProperties, GenerateJaCoCoTestKitProperties::class.java)
 
-            tasks.all {
+            tasks.configureEach {
                 if (it.name == test) {
                     it.dependsOn(jacocoTestKitPropertiesTask)
                 }
             }
         }
     }
-
 }

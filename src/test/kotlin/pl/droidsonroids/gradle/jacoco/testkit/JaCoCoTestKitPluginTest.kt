@@ -10,7 +10,7 @@ import pl.droidsonroids.gradle.jacoco.testkit.Tasks.test
 
 class JaCoCoTestKitPluginTest {
 
-    lateinit var project: Project
+    private lateinit var project: Project
 
     @Before
     fun setUp() {
