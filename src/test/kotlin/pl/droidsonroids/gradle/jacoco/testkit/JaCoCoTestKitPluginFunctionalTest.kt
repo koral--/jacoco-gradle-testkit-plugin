@@ -93,6 +93,18 @@ class JaCoCoTestKitPluginFunctionalTest {
     }
 
     @Test
+    fun `plugin compatible with Instant Execution`() {
+        temporaryFolder.newFile("build.gradle").fillFromResource("simple.gradle")
+        GradleRunner.create()
+                .withGradleVersion("6.4-rc-3")
+                .withProjectDir(temporaryFolder.root)
+                .withTestKitDir(temporaryFolder.newFolder())
+                .withArguments("generateJacocoTestKitProperties", "-Dorg.gradle.unsafe.instant-execution=true")
+                .withPluginClasspath()
+                .build()
+    }
+
+    @Test
     fun `gradle properties file generated with custom destination file`() {
         temporaryFolder.newFile("build.gradle").fillFromResource("custom-destination.gradle")
         GradleRunner.create()

@@ -1,7 +1,13 @@
 plugins {
+    id 'java'
+    id 'jacoco'
     id 'pl.droidsonroids.jacoco.testkit'
 }
 
 repositories {
     mavenCentral()
+}
+
+jacocoTestKit {
+    applyTo("testRuntimeOnly",tasks.named("test"))
 }
