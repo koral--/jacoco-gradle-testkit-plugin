@@ -7,8 +7,7 @@ import org.gradle.testfixtures.ProjectBuilder
 import org.gradle.testing.jacoco.plugins.JacocoPlugin
 import org.junit.Before
 import org.junit.Test
-import pl.droidsonroids.gradle.jacoco.testkit.Configurations.currentTestRuntime
-import pl.droidsonroids.gradle.jacoco.testkit.Tasks.test
+import java.util.*
 
 class JaCoCoTestKitPluginTest {
 
@@ -24,16 +23,13 @@ class JaCoCoTestKitPluginTest {
 
     @Test
     fun `properties resource added to testRuntime configuration`() {
-        val testTask = project.tasks.named(test)
-        project.extensions.getByType(JaCoCoTestKit::class.java).applyTo(currentTestRuntime, testTask)
-        assertThat(project.configurations.getByName(currentTestRuntime).allDependencies).isNotEmpty
+        assertThat(project.configurations.getByName(JavaPlugin.TEST_RUNTIME_ONLY_CONFIGURATION_NAME).allDependencies).isNotEmpty
     }
 
     @Test
     fun `generateJacocoTestKitProperties task created with dependencies`() {
-        val testTask = project.tasks.named(test)
-        project.extensions.getByType(JaCoCoTestKit::class.java).applyTo(currentTestRuntime, testTask)
+        val testTask = project.tasks.named(JavaPlugin.TEST_TASK_NAME)
         assertThat(testTask.get().taskDependencies.getDependencies(testTask.get()))
-                .contains(project.tasks.getByName(Tasks.generateJacocoTestKitProperties))
+                .contains(project.tasks.getByName("generateJacocoTestKitProperties"))
     }
 }

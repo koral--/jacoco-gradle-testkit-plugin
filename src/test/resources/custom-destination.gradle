@@ -8,7 +8,8 @@ repositories {
     mavenCentral()
 }
 
-task generateJacocoIntegrationTestKitProperties(type: pl.droidsonroids.gradle.jacoco.testkit.GenerateJaCoCoTestKitProperties) {
-    destinationFile = file('integration.exec').path
-    jacocoRuntimePath = jacocoTestKit.jacocoRuntimePathProvider
+tasks.named("test").configure {
+    jacoco {
+        destinationFile = file('integration.exec')
+    }
 }

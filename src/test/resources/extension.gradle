@@ -11,7 +11,3 @@ repositories {
 jacoco {
     toolVersion = '0.7.7.201606060606'
 }
-
-jacocoTestKit {
-    applyTo("testRuntimeOnly",tasks.named("test"))
-}
