@@ -102,7 +102,7 @@ class JaCoCoTestKitPluginFunctionalTest {
                 .withGradleVersion("6.4-rc-4")
                 .withProjectDir(temporaryFolder.root)
                 .withTestKitDir(temporaryFolder.newFolder())
-                .withArguments("generateJacocoTestKitProperties", "-Dorg.gradle.unsafe.instant-execution=true")
+                .withArguments(generateJacocoTestKitProperties, "-Dorg.gradle.unsafe.instant-execution=true")
                 .withPluginClasspath()
                 .build()
     }
@@ -113,7 +113,7 @@ class JaCoCoTestKitPluginFunctionalTest {
         GradleRunner.create()
                 .withProjectDir(temporaryFolder.root)
                 .withTestKitDir(temporaryFolder.newFolder())
-                .withArguments("generateJacocoTestKitProperties")
+                .withArguments(generateJacocoTestKitProperties)
                 .withPluginClasspath()
                 .build()
 
