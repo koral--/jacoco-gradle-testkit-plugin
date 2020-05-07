@@ -1,5 +1,6 @@
 plugins {
     id 'pl.droidsonroids.jacoco.testkit'
+    id 'java'
     id 'jacoco'
 }
 

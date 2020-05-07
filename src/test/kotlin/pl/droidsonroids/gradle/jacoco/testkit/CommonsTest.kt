@@ -39,6 +39,6 @@ class CommonsTest {
     @Test
     fun `test kit directory is located in build directory`() {
         val project = ProjectBuilder.builder().build()
-        assertThat(project.testKitDir()).hasParent(project.buildDir)
+        assertThat(project.testKitDir()).hasParent(File(project.buildDir, "testkit"))
     }
 }

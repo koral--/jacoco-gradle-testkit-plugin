@@ -54,12 +54,23 @@ class AwesomeTest {
 }
 ```
 
-### Custom JaCoCo destination file
-JaCoCo destination file path defaults to `${project.buildDir}/jacoco/test.exec` but may be changed
-using `destinationFile` task property e.g.:
+### Adding coverage for another task (ex. integrationTest)
+By default the plugin configures the `test` task for any project with Java plugin applied.
+
+To configure the coverage for another task just add something like this: 
 ```groovy
-task generateJacocoIntegrationTestKitProperties(type: GenerateJaCoCoTestKitProperties) {
-  destinationFile = file('integration.exec')
+jacocoTestKit {
+    applyTo("intTestRuntimeOnly", tasks.named("integrationTest"))
+}
+```
+ 
+### Custom JaCoCo destination file
+JaCoCo destination file path reads it from the `JacocoTaskExtension` so you can change it like this:
+```groovy
+tasks.named("test").configure {
+    jacoco {
+        destinationFile = file('integration.exec')
+    }
 }
 ```
 

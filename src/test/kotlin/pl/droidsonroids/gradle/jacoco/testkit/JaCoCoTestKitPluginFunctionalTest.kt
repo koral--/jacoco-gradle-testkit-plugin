@@ -7,7 +7,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import pl.droidsonroids.gradle.jacoco.testkit.Tasks.generateJacocoTestKitProperties
 import java.io.File
 import java.util.Properties
 
@@ -18,6 +17,10 @@ class JaCoCoTestKitPluginFunctionalTest {
     @Before
     fun setUp() {
         temporaryFolder.newFile("gradle.properties").fillFromResource("testkit-gradle.properties")
+    }
+
+    companion object {
+        const val generateJacocoTestKitProperties = "generateJacocoTestKitProperties"
     }
 
     @Test
@@ -93,12 +96,24 @@ class JaCoCoTestKitPluginFunctionalTest {
     }
 
     @Test
+    fun `plugin compatible with Instant Execution`() {
+        temporaryFolder.newFile("build.gradle").fillFromResource("simple.gradle")
+        GradleRunner.create()
+                .withGradleVersion("6.4")
+                .withProjectDir(temporaryFolder.root)
+                .withTestKitDir(temporaryFolder.newFolder())
+                .withArguments(generateJacocoTestKitProperties, "-Dorg.gradle.unsafe.instant-execution=true")
+                .withPluginClasspath()
+                .build()
+    }
+
+    @Test
     fun `gradle properties file generated with custom destination file`() {
         temporaryFolder.newFile("build.gradle").fillFromResource("custom-destination.gradle")
         GradleRunner.create()
                 .withProjectDir(temporaryFolder.root)
                 .withTestKitDir(temporaryFolder.newFolder())
-                .withArguments("generateJacocoIntegrationTestKitProperties")
+                .withArguments(generateJacocoTestKitProperties)
                 .withPluginClasspath()
                 .build()
 
@@ -107,8 +122,23 @@ class JaCoCoTestKitPluginFunctionalTest {
                 .endsWith("integration.exec\"")
     }
 
-    private fun readArgsFromProperties(): String {
-        val propertiesFile = File(temporaryFolder.root, "build/testkit/testkit-gradle.properties")
+    @Test
+    fun `gradle properties file generated for a custom task`() {
+        temporaryFolder.newFile("build.gradle").fillFromResource("custom-task.gradle")
+        GradleRunner.create()
+            .withProjectDir(temporaryFolder.root)
+            .withTestKitDir(temporaryFolder.newFolder())
+            .withArguments("generateJacocoIntegrationTestKitProperties")
+            .withPluginClasspath()
+            .build()
+
+        val args = readArgsFromProperties("integrationTest")
+        assertThat(args)
+            .endsWith("integrationTest.exec\"")
+    }
+
+    private fun readArgsFromProperties(taskName: String = "test"): String {
+        val propertiesFile = File(temporaryFolder.root, "build/testkit/$taskName/testkit-gradle.properties")
         val properties = Properties()
         propertiesFile.inputStream().use { inputStream ->
             properties.load(inputStream)
@@ -116,8 +146,8 @@ class JaCoCoTestKitPluginFunctionalTest {
         return properties.getProperty("org.gradle.jvmargs")
     }
 
-    private fun readLinesFromProperties(): List<String> {
-        val propertiesFile = File(temporaryFolder.root, "build/testkit/testkit-gradle.properties")
+    private fun readLinesFromProperties(taskName: String = "test"): List<String> {
+        val propertiesFile = File(temporaryFolder.root, "build/testkit/$taskName/testkit-gradle.properties")
         return propertiesFile.inputStream().use { inputStream ->
             inputStream.reader().readLines()
         }

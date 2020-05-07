@@ -6,16 +6,13 @@ import java.io.File
 
 internal object Configurations {
     const val jacocoRuntime = "jacocoRuntime"
-    const val currentTestRuntime = "testRuntimeOnly"
 }
 
-internal object Tasks {
-    const val test = "test"
-    const val generateJacocoTestKitProperties = "generateJacocoTestKitProperties"
-}
-
-internal fun Project.testKitDir() = File(buildDir, "testkit")
+internal fun Project.testKitDir(taskName: String = "test") = File(buildDir, "testkit/$taskName")
 
 internal fun File.ensureParentExists() = with(parentFile) {
     isDirectory || mkdirs() || throw GradleException("Could not create $path")
 }
+
+internal fun generatePropertiesTaskName(taskName: String) =
+    "generateJacoco${taskName.capitalize()}KitProperties"

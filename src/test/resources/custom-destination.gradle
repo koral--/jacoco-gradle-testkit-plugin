@@ -1,11 +1,15 @@
 plugins {
     id 'pl.droidsonroids.jacoco.testkit'
+    id 'java'
+    id 'jacoco'
 }
 
 repositories {
     mavenCentral()
 }
 
-task generateJacocoIntegrationTestKitProperties(type: pl.droidsonroids.gradle.jacoco.testkit.GenerateJaCoCoTestKitProperties) {
-    destinationFile = file('integration.exec')
+tasks.named("test").configure {
+    jacoco {
+        destinationFile = file('integration.exec')
+    }
 }
