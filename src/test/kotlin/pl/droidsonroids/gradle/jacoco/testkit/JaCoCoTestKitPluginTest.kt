@@ -7,7 +7,6 @@ import org.gradle.testfixtures.ProjectBuilder
 import org.gradle.testing.jacoco.plugins.JacocoPlugin
 import org.junit.Before
 import org.junit.Test
-import java.util.*
 
 class JaCoCoTestKitPluginTest {
 
