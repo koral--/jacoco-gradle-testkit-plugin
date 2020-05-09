@@ -1,3 +1,7 @@
+### 1.0.7
+- Gradle wrapper regenerated with 6.4
+- Make the plugin compatible with Instant Execution (thanks to @CristianGM) - [#15](#15)
+
 ### 1.0.6
 - Gradle wrapper regenerated with 6.3
 - Kotlin updated to 1.3.72
