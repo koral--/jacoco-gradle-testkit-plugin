@@ -17,7 +17,7 @@ for more details.
 - Apply plugin in `build.gradle`:
 ```groovy
 plugins {
-  id "pl.droidsonroids.jacoco.testkit" version "1.0.7"
+  id "pl.droidsonroids.jacoco.testkit" version "1.0.8"
 }
 ```
 This will add `testkit-gradle.properties` system resource.
