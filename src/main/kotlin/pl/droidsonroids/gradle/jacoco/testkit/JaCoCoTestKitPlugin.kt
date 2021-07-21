@@ -11,6 +11,8 @@ class JaCoCoTestKitPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
         with(project) {
+            pluginManager.apply("jacoco")
+
             val extension = extensions.create("jacocoTestKit", JacocoTestKitExtension::class.java, project)
             configurations.maybeCreate(jacocoRuntime)
                     .setVisible(false)
