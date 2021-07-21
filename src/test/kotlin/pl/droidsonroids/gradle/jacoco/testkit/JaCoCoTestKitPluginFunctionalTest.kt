@@ -38,7 +38,7 @@ class JaCoCoTestKitPluginFunctionalTest {
                 .startsWith("\"-javaagent:")
                 .contains("=destfile=")
                 .contains(JacocoPlugin.DEFAULT_JACOCO_VERSION)
-                .endsWith("test-gradle-runner.exec\"")
+                .endsWith("test.exec\"")
     }
 
     @Test
@@ -119,7 +119,7 @@ class JaCoCoTestKitPluginFunctionalTest {
 
         val args = readArgsFromProperties()
         assertThat(args)
-                .endsWith("integration-gradle-runner.exec\"")
+                .endsWith("integration.exec\"")
     }
 
     @Test
@@ -134,7 +134,7 @@ class JaCoCoTestKitPluginFunctionalTest {
 
         val args = readArgsFromProperties("integrationTest")
         assertThat(args)
-            .endsWith("integrationTest-gradle-runner.exec\"")
+            .endsWith("integrationTest.exec\"")
     }
 
     private fun readArgsFromProperties(taskName: String = "test"): String {
