@@ -1,3 +1,10 @@
+### 1.0.9
+- Applies `jacoco` plugin by default
+
+### 1.0.8
+- Workaround for Failed to create MD5 hash for file content error on Windows (#20)
+- Update dependency versions
+
 ### 1.0.7
 - Gradle wrapper regenerated with 6.4
 - Make the plugin compatible with Instant Execution (thanks to @CristianGM) - [#15](#15)
