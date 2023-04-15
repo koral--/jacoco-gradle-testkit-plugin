@@ -15,4 +15,4 @@ internal fun File.ensureParentExists() = with(parentFile) {
 }
 
 internal fun generatePropertiesTaskName(taskName: String) =
-    "generateJacoco${taskName.capitalize()}KitProperties"
+    "generateJacoco${taskName.replaceFirstChar(Char::uppercase)}KitProperties"

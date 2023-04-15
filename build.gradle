@@ -1,9 +1,9 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.4.32'
-    id 'com.gradle.plugin-publish' version '0.14.0'
+    id 'org.jetbrains.kotlin.jvm' version '1.8.20'
+    id 'com.gradle.plugin-publish' version '1.2.0'
     id 'jacoco'
     id 'java-gradle-plugin'
-    id 'pl.droidsonroids.jacoco.testkit' version '1.0.8'
+//    id 'pl.droidsonroids.jacoco.testkit' version '1.0.8'
 }
 
 dependencies {
@@ -12,45 +12,36 @@ dependencies {
     testImplementation 'org.assertj:assertj-core:3.16.1'
 }
 
-repositories {
-    mavenCentral()
-}
-
 group = GROUP
 version = VERSION_NAME
 
-pluginBundle {
+gradlePlugin {
     website = POM_URL
     vcsUrl = POM_SCM_URL
-    description = POM_DESCRIPTION
-    tags = ['jacoco', 'coverage', 'testkit', 'test']
 
-    plugins {
-        jacocoTestKitPlugin {
-            id = 'pl.droidsonroids.jacoco.testkit'
-            displayName = POM_NAME
-            description = POM_DESCRIPTION
-        }
-    }
-}
-
-gradlePlugin {
     plugins {
         jacocoTestKitPlugin {
             id = 'pl.droidsonroids.jacoco.testkit'
             implementationClass = 'pl.droidsonroids.gradle.jacoco.testkit.JaCoCoTestKitPlugin'
+            displayName = POM_NAME
+            description = POM_DESCRIPTION
+            tags.set(['jacoco', 'coverage', 'testkit', 'test'])
         }
     }
 }
 
+kotlin {
+    jvmToolchain(17)
+}
+
 jacoco {
-    toolVersion '0.8.6'
+    toolVersion '0.8.9'
 }
 
 jacocoTestReport {
     reports {
-        xml.enabled true
-        csv.enabled false
-        html.enabled true
+        xml.required = true
+        csv.required = false
+        html.required = true
     }
 }

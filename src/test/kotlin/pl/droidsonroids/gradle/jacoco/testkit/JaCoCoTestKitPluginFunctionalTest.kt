@@ -16,7 +16,7 @@ class JaCoCoTestKitPluginFunctionalTest {
 
     @Before
     fun setUp() {
-        temporaryFolder.newFile("gradle.properties").fillFromResource("testkit-gradle.properties")
+        temporaryFolder.newFile("gradle.properties")
     }
 
     companion object {
@@ -85,10 +85,10 @@ class JaCoCoTestKitPluginFunctionalTest {
 
 
     @Test
-    fun `plugin compatible with Gradle 4_9`() {
+    fun `plugin compatible with Gradle 7_6`() {
         temporaryFolder.newFile("build.gradle").fillFromResource("simple.gradle")
         GradleRunner.create()
-                .withGradleVersion("4.9")
+                .withGradleVersion("7.6")
                 .withProjectDir(temporaryFolder.root)
                 .withTestKitDir(temporaryFolder.newFolder())
                 .withPluginClasspath()
@@ -96,15 +96,21 @@ class JaCoCoTestKitPluginFunctionalTest {
     }
 
     @Test
-    fun `plugin compatible with Instant Execution`() {
+    fun `plugin compatible with Configuration Cache`() {
         temporaryFolder.newFile("build.gradle").fillFromResource("simple.gradle")
         GradleRunner.create()
-                .withGradleVersion("6.4")
-                .withProjectDir(temporaryFolder.root)
-                .withTestKitDir(temporaryFolder.newFolder())
-                .withArguments(generateJacocoTestKitProperties, "-Dorg.gradle.unsafe.instant-execution=true")
-                .withPluginClasspath()
-                .build()
+            .withProjectDir(temporaryFolder.root)
+            .withTestKitDir(temporaryFolder.newFolder())
+            .withArguments(generateJacocoTestKitProperties, "--configuration-cache")
+            .withPluginClasspath()
+            .build()
+
+        GradleRunner.create()
+            .withProjectDir(temporaryFolder.root)
+            .withTestKitDir(temporaryFolder.newFolder())
+            .withArguments(generateJacocoTestKitProperties, "--configuration-cache")
+            .withPluginClasspath()
+            .build()
     }
 
     @Test

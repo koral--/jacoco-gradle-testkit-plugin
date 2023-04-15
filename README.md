@@ -16,7 +16,7 @@ for more details.
 - Apply plugin in `build.gradle`:
 ```groovy
 plugins {
-  id "pl.droidsonroids.jacoco.testkit" version "1.0.8"
+  id "pl.droidsonroids.jacoco.testkit" version "1.0.9"
 }
 ```
 This will add `testkit-gradle.properties` system resource.
@@ -56,13 +56,13 @@ class AwesomeTest {
 ### Adding coverage for another task (ex. integrationTest)
 By default the plugin configures the `test` task for any project with Java plugin applied.
 
-To configure the coverage for another task just add something like this: 
+To configure the coverage for another task just add something like this:
 ```groovy
 jacocoTestKit {
     applyTo("intTestRuntimeOnly", tasks.named("integrationTest"))
 }
 ```
- 
+
 ### Custom JaCoCo destination file
 JaCoCo destination file path reads it from the `JacocoTaskExtension` so you can change it like this:
 ```groovy
@@ -73,5 +73,5 @@ tasks.named("test").configure {
 }
 ```
 
-### Update from 1.0.5 or older
-Starting from plugin version 1.0.6 the minimum supported Gradle version is 4.9
+### Requirements
+Minimum supported Gradle version is 7.6
