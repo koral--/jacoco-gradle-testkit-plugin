@@ -12,10 +12,6 @@ dependencies {
     testImplementation 'org.assertj:assertj-core:3.16.1'
 }
 
-repositories {
-    mavenCentral()
-}
-
 group = GROUP
 version = VERSION_NAME
 
