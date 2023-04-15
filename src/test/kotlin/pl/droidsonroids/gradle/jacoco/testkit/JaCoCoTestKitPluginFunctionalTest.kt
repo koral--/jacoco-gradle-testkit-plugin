@@ -96,15 +96,21 @@ class JaCoCoTestKitPluginFunctionalTest {
     }
 
     @Test
-    fun `plugin compatible with Instant Execution`() {
+    fun `plugin compatible with Configuration Cache`() {
         temporaryFolder.newFile("build.gradle").fillFromResource("simple.gradle")
         GradleRunner.create()
-                .withGradleVersion("6.4")
-                .withProjectDir(temporaryFolder.root)
-                .withTestKitDir(temporaryFolder.newFolder())
-                .withArguments(generateJacocoTestKitProperties, "-Dorg.gradle.unsafe.instant-execution=true")
-                .withPluginClasspath()
-                .build()
+            .withProjectDir(temporaryFolder.root)
+            .withTestKitDir(temporaryFolder.newFolder())
+            .withArguments(generateJacocoTestKitProperties, "--configuration-cache")
+            .withPluginClasspath()
+            .build()
+
+        GradleRunner.create()
+            .withProjectDir(temporaryFolder.root)
+            .withTestKitDir(temporaryFolder.newFolder())
+            .withArguments(generateJacocoTestKitProperties, "--configuration-cache")
+            .withPluginClasspath()
+            .build()
     }
 
     @Test
