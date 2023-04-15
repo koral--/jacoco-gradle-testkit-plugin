@@ -85,10 +85,10 @@ class JaCoCoTestKitPluginFunctionalTest {
 
 
     @Test
-    fun `plugin compatible with Gradle 4_9`() {
+    fun `plugin compatible with Gradle 7_6`() {
         temporaryFolder.newFile("build.gradle").fillFromResource("simple.gradle")
         GradleRunner.create()
-                .withGradleVersion("4.9")
+                .withGradleVersion("7.6")
                 .withProjectDir(temporaryFolder.root)
                 .withTestKitDir(temporaryFolder.newFolder())
                 .withPluginClasspath()
