@@ -16,7 +16,7 @@ for more details.
 - Apply plugin in `build.gradle`:
 ```groovy
 plugins {
-  id "pl.droidsonroids.jacoco.testkit" version "1.0.9"
+  id "pl.droidsonroids.jacoco.testkit" version "1.0.10"
 }
 ```
 This will add `testkit-gradle.properties` system resource.
@@ -74,4 +74,6 @@ tasks.named("test").configure {
 ```
 
 ### Requirements
-Minimum supported Gradle version is 7.6
+Minimum supported versions:
+- Gradle: **7.6**
+- Java: **1.8**

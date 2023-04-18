@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.8.20'
     id 'com.gradle.plugin-publish' version '1.2.0'
@@ -32,6 +34,14 @@ gradlePlugin {
 
 kotlin {
     jvmToolchain(17)
+}
+
+def javaTargetVersion = JavaVersion.VERSION_1_8
+tasks.withType(KotlinCompile).configureEach {
+    kotlinOptions.jvmTarget = javaTargetVersion.toString()
+}
+tasks.withType(JavaCompile).configureEach {
+    options.release.set(javaTargetVersion.majorVersion.toInteger())
 }
 
 jacoco {
