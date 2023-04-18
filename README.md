@@ -74,4 +74,6 @@ tasks.named("test").configure {
 ```
 
 ### Requirements
-Minimum supported Gradle version is 7.6
+Minimum supported versions:
+- Gradle: **7.6**
+- Java: **1.8**
