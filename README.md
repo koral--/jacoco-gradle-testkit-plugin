@@ -16,7 +16,7 @@ for more details.
 - Apply plugin in `build.gradle`:
 ```groovy
 plugins {
-  id "pl.droidsonroids.jacoco.testkit" version "1.0.10"
+  id "pl.droidsonroids.jacoco.testkit" version "1.0.11"
 }
 ```
 This will add `testkit-gradle.properties` system resource.
@@ -77,3 +77,28 @@ tasks.named("test").configure {
 Minimum supported versions:
 - Gradle: **7.6**
 - Java: **1.8**
+
+### Backwards compatibility
+
+#### Migrating from 1.0.9 or older
+
+Starting from version 1.0.10 the legacy plugin coordinates have changed. For example:
+
+```
+classpath("gradle.plugin.pl.droidsonroids.gradle.jacoco:jacoco-gradle-testkit-plugin:1.0.9")
+```
+
+became:
+
+```
+classpath("pl.droidsonroids.gradle.jacoco:pl.droidsonroids.gradle.jacoco:1.0.10")
+```
+
+Note the `gradle.plugin` prefix has gone. This change does NOT affect the plugins DSL:
+
+```
+plugins {
+  id("pl.droidsonroids.jacoco.testkit") version "1.0.10"
+}
+```
+
