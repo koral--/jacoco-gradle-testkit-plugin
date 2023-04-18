@@ -3,6 +3,7 @@ package pl.droidsonroids.gradle.jacoco.testkit
 import org.assertj.core.api.Assertions.assertThat
 import org.gradle.testing.jacoco.plugins.JacocoPlugin
 import org.gradle.testkit.runner.GradleRunner
+import org.gradle.testkit.runner.TaskOutcome
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -97,20 +98,33 @@ class JaCoCoTestKitPluginFunctionalTest {
 
     @Test
     fun `plugin compatible with Configuration Cache`() {
+        val testKitDir = temporaryFolder.newFolder()
+        // https://docs.gradle.org/8.1/userguide/configuration_cache.html#config_cache:not_yet_implemented:testkit_build_with_java_agent
+        temporaryFolder.root.resolve("gradle.properties").delete()
+
         temporaryFolder.newFile("build.gradle").fillFromResource("simple.gradle")
-        GradleRunner.create()
+        val initialRun = GradleRunner.create()
             .withProjectDir(temporaryFolder.root)
-            .withTestKitDir(temporaryFolder.newFolder())
+            .withTestKitDir(testKitDir)
             .withArguments(generateJacocoTestKitProperties, "--configuration-cache")
             .withPluginClasspath()
             .build()
 
-        GradleRunner.create()
+        val secondRun = GradleRunner.create()
             .withProjectDir(temporaryFolder.root)
-            .withTestKitDir(temporaryFolder.newFolder())
+            .withTestKitDir(testKitDir)
             .withArguments(generateJacocoTestKitProperties, "--configuration-cache")
             .withPluginClasspath()
             .build()
+
+        assertThat(initialRun.task(":$generateJacocoTestKitProperties")?.outcome)
+            .isEqualTo(TaskOutcome.SUCCESS)
+        assertThat(initialRun.output)
+            .contains("Calculating task graph as no configuration cache is available for tasks: $generateJacocoTestKitProperties")
+        assertThat(secondRun.task(":$generateJacocoTestKitProperties")?.outcome)
+            .isEqualTo(TaskOutcome.UP_TO_DATE)
+        assertThat(secondRun.output)
+            .contains("Reusing configuration cache.")
     }
 
     @Test
