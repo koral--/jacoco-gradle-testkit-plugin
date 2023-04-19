@@ -1,6 +1,6 @@
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/pvd82vx2koufk4u5/branch/master?svg=true)](https://ci.appveyor.com/project/koral--/jacoco-gradle-testkit-plugin/branch/master)
 [![codecov](https://codecov.io/gh/koral--/jacoco-gradle-testkit-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/koral--/jacoco-gradle-testkit-plugin)
-[![Bitrise](https://www.bitrise.io/app/8be2125eb039c87e.svg?token=ZWi1ISNfiK0LCZ7Bk5g_TA&branch=master)](https://www.bitrise.io/app/8be2125eb039c87e)
+[![Build Status](https://app.bitrise.io/app/8be2125eb039c87e/status.svg?token=ZWi1ISNfiK0LCZ7Bk5g_TA&branch=master)](https://app.bitrise.io/app/8be2125eb039c87e)
 
 # jacoco-gradle-testkit-plugin
 Gradle plugin for [JaCoCo](http://www.eclemma.org/jacoco/) code coverage
