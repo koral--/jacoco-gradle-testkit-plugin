@@ -1,3 +1,6 @@
+### 1.0.11
+- Technical release, no changes
+
 ### 1.0.10
 
 - Fix Gradle 8.1 Compatibility (thanks to @mateuszkwiecinski) - [#26](#26)
