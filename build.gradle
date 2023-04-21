@@ -44,6 +44,12 @@ tasks.withType(JavaCompile).configureEach {
     options.release.set(javaTargetVersion.majorVersion.toInteger())
 }
 
+tasks.withType(Test).configureEach {
+    doLast {
+        Thread.sleep(2000) // https://github.com/gradle/gradle/issues/16603
+    }
+}
+
 jacoco {
     toolVersion '0.8.9'
 }
