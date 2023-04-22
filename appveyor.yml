@@ -5,10 +5,10 @@ build:
   verbosity: detailed
 
 build_script:
-  - gradlew.bat assemble --info --project-cache-dir=../cache
+  - gradlew.bat assemble --info
 
 test_script:
-  - gradlew.bat check --info --project-cache-dir=../cache
+  - gradlew.bat check --info
 
 cache:
   - C:\Users\appveyor\.gradle

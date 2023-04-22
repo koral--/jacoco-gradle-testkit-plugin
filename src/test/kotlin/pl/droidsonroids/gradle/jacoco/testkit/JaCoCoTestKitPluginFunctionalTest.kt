@@ -17,7 +17,7 @@ class JaCoCoTestKitPluginFunctionalTest {
 
     @Before
     fun setUp() {
-        temporaryFolder.newFile("gradle.properties")
+        temporaryFolder.newFile("gradle.properties").fillFromResource("testkit-gradle.properties")
     }
 
     companion object {
