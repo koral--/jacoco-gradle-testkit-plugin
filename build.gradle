@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.8.20'
+    id 'org.jetbrains.kotlin.jvm' version '1.8.21'
     id 'com.gradle.plugin-publish' version '1.2.0'
     id 'jacoco'
     id 'java-gradle-plugin'
@@ -51,7 +51,7 @@ tasks.withType(Test).configureEach {
 }
 
 jacoco {
-    toolVersion '0.8.9'
+    toolVersion '0.8.10'
 }
 
 jacocoTestReport {
