@@ -1,3 +1,7 @@
+### 1.0.12
+- Fix Gradle 7.6 Compatibility - [#32](#32)
+- Update dependency versions
+
 ### 1.0.11
 - Technical release, no changes
 
