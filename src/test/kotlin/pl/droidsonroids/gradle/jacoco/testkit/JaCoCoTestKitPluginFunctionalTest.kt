@@ -28,36 +28,36 @@ class JaCoCoTestKitPluginFunctionalTest {
     fun `gradle properties file generated with default version`() {
         temporaryFolder.newFile("build.gradle").fillFromResource("simple.gradle")
         GradleRunner.create()
-                .withProjectDir(temporaryFolder.root)
-                .withTestKitDir(temporaryFolder.newFolder())
-                .withArguments(generateJacocoTestKitProperties)
-                .withPluginClasspath()
-                .build()
+            .withProjectDir(temporaryFolder.root)
+            .withTestKitDir(temporaryFolder.newFolder())
+            .withArguments(generateJacocoTestKitProperties)
+            .withPluginClasspath()
+            .build()
 
         val args = readArgsFromProperties()
         assertThat(args)
-                .startsWith("\"-javaagent:")
-                .contains("=destfile=")
-                .contains(JacocoPlugin.DEFAULT_JACOCO_VERSION)
-                .endsWith("test.exec\"")
+            .startsWith("\"-javaagent:")
+            .contains("=destfile=")
+            .contains(JacocoPlugin.DEFAULT_JACOCO_VERSION)
+            .endsWith("test.exec\"")
     }
 
     @Test
     fun `gradle properties file generated with explicit version`() {
         temporaryFolder.newFile("build.gradle").fillFromResource("extension.gradle")
         GradleRunner.create()
-                .withProjectDir(temporaryFolder.root)
-                .withTestKitDir(temporaryFolder.newFolder())
-                .withArguments(generateJacocoTestKitProperties)
-                .withPluginClasspath()
-                .build()
+            .withProjectDir(temporaryFolder.root)
+            .withTestKitDir(temporaryFolder.newFolder())
+            .withArguments(generateJacocoTestKitProperties)
+            .withPluginClasspath()
+            .build()
 
         val args = readArgsFromProperties()
         assertThat(args)
-                .startsWith("\"-javaagent:")
-                .contains("=destfile=")
-                .contains("0.7.7.201606060606")
-                .endsWith(".exec\"")
+            .startsWith("\"-javaagent:")
+            .contains("=destfile=")
+            .contains("0.7.7.201606060606")
+            .endsWith(".exec\"")
     }
 
     @Test
@@ -87,13 +87,17 @@ class JaCoCoTestKitPluginFunctionalTest {
 
     @Test
     fun `plugin compatible with Gradle 7_6`() {
-        temporaryFolder.newFile("build.gradle").fillFromResource("simple.gradle")
-        GradleRunner.create()
+        temporaryFolder.newFile("build.gradle").fillFromResource("custom-task.gradle")
+        assertThat(
+            GradleRunner.create()
                 .withGradleVersion("7.6")
                 .withProjectDir(temporaryFolder.root)
                 .withTestKitDir(temporaryFolder.newFolder())
+                .withArguments(generateJacocoTestKitProperties)
                 .withPluginClasspath()
                 .build()
+                .task(":$generateJacocoTestKitProperties")?.outcome
+        ).isEqualTo(TaskOutcome.SUCCESS)
     }
 
     @Test
@@ -131,15 +135,15 @@ class JaCoCoTestKitPluginFunctionalTest {
     fun `gradle properties file generated with custom destination file`() {
         temporaryFolder.newFile("build.gradle").fillFromResource("custom-destination.gradle")
         GradleRunner.create()
-                .withProjectDir(temporaryFolder.root)
-                .withTestKitDir(temporaryFolder.newFolder())
-                .withArguments(generateJacocoTestKitProperties)
-                .withPluginClasspath()
-                .build()
+            .withProjectDir(temporaryFolder.root)
+            .withTestKitDir(temporaryFolder.newFolder())
+            .withArguments(generateJacocoTestKitProperties)
+            .withPluginClasspath()
+            .build()
 
         val args = readArgsFromProperties()
         assertThat(args)
-                .endsWith("integration.exec\"")
+            .endsWith("integration.exec\"")
     }
 
     @Test
@@ -158,7 +162,8 @@ class JaCoCoTestKitPluginFunctionalTest {
     }
 
     private fun readArgsFromProperties(taskName: String = "test"): String {
-        val propertiesFile = File(temporaryFolder.root, "build/testkit/$taskName/testkit-gradle.properties")
+        val propertiesFile =
+            File(temporaryFolder.root, "build/testkit/$taskName/testkit-gradle.properties")
         val properties = Properties()
         propertiesFile.inputStream().use { inputStream ->
             properties.load(inputStream)
@@ -167,7 +172,8 @@ class JaCoCoTestKitPluginFunctionalTest {
     }
 
     private fun readLinesFromProperties(taskName: String = "test"): List<String> {
-        val propertiesFile = File(temporaryFolder.root, "build/testkit/$taskName/testkit-gradle.properties")
+        val propertiesFile =
+            File(temporaryFolder.root, "build/testkit/$taskName/testkit-gradle.properties")
         return propertiesFile.inputStream().use { inputStream ->
             inputStream.reader().readLines()
         }
